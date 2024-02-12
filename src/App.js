@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Container, AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
+import UsersList from './UsersList';
+import UserDetails from './UserDetails';
 
-function App() {
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(4), 
+  },
+}));
+
+const App = () => {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">GitHub User App</Typography>
+        </Toolbar>
+      </AppBar>
+      <Container className={classes.container}>
+        <Routes>
+          <Route path="/" element={<UsersList />} />
+          <Route path="/user/:username" element={<UserDetails />} />
+        </Routes>
+      </Container>
+    </Router>
   );
-}
+};
 
 export default App;
